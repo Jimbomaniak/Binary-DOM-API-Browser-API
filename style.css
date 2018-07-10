@@ -123,6 +123,8 @@
   justify-content: center;
   flex-wrap: wrap;
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .chooseTag .tag {
@@ -144,6 +146,19 @@
 .chooseTag li.checked {
   background-color: hsl(224, 77%, 23%);
   text-decoration: underline;
+}
+
+.up-btn {
+  display: none;
+  position: fixed;
+  top: 30px;
+  left: 20px;
+  cursor: pointer;
+  font-size: 35px;
+  color: hsla(0, 0%, 0%, 0.49);
+}
+.up-btn:hover {
+  color: hsla(0, 0%, 0%, 0.7);
 }
 
 @media only screen and (max-width: 600px) {

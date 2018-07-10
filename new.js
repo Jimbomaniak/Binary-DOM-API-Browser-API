@@ -12,6 +12,7 @@ let savedTags = getSavedTags();
 const searchInput = document.getElementById('search');
 const footer = document.querySelector('.footer');
 const tags = document.querySelector('.chooseTag');
+const upBtn = document.querySelector('.up-btn');
 
 
 function getSavedTags() {
@@ -36,9 +37,21 @@ data.then((posts) => {
   infiniteScroll(mainData);
 
   searchInput.addEventListener('keyup', () => searchPosts(mainData, searchInput.value))
+
   });
 
-
+function scrollUp (posts) {
+    let pageY = window.pageYOffset || document.documentElement.scrollTop;
+    let innerHeight = document.documentElement.clientHeight;
+    if (pageY > innerHeight) {
+      upBtn.style.display = 'inline';
+      upBtn.onclick = () => {
+        window.scrollTo(0,0);
+      }
+    } else {
+      upBtn.style.display = 'none';
+    }
+}
 function searchPosts (posts, value) {
     if (!searchInput.value) {
       removeAllPosts(mainDiv);
@@ -62,8 +75,13 @@ function infiniteScroll(posts) {
   let partedPosts = divideArray(posts);
   showPosts(partedPosts.shift());
 
-  document.onscroll = () => appendNext(partedPosts);
-}
+  document.onscroll = () => {
+      scrollUp();
+      appendNext(partedPosts);
+    }
+
+  };
+
 
 function appendNext(posts) {
   if (posts.length && isAppearOnScreen(footer)) {
